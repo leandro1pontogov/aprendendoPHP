@@ -24,6 +24,14 @@
     height: 100%;
     gap: 5px;
   }
+  #frmImc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    height: 100%;
+    gap: 5px;
+  }
   #linha{
     border: 1px dashed black;
     width: 100%;
@@ -57,6 +65,17 @@ $(document).ready(function() {
         console.log(response)
     })
   })
+  $("#BtnEnviarImc").click(function(){
+    $.post(
+      "controller.php?action=calcularImc",
+      {
+        vlPeso: $("#vlPeso").val(),
+        vlAltura: $("#vlAltura").val(),
+      },
+      function(response){
+        console.log(response)
+    })
+  })
 })
 </script>
 </head>
@@ -65,6 +84,8 @@ $(document).ready(function() {
   
 
   <form id="frmCadastroPessoa">
+
+    <h2>Informe os dados</h2>
 
     <label for="dsNome">Informe seu nome</label>
     <input type="text" id="dsNome" name="dsNome">
@@ -97,7 +118,22 @@ $(document).ready(function() {
     <label for="vlNota4">Nota 4</label>
     <input type="text" id="vlNota4" name="vlNota4">
 
-    <input id="BtnEnviarNota" type="button" value="EnviarNota">
+    <input id="BtnEnviarNota" type="button" value="Enviar">
+
+  </form>
+
+  <div id="linha"></div>
+
+  <form id="frmImc">
+
+    <h2>Informe os dados</h2>
+
+    <label for="vlPeso">Peso</label>
+    <input type="text" id="vlPeso" name="vlPeso">
+    <label for="vlAltura">Altura</label>
+    <input type="text" id="vlAltura" name="vlAltura">
+
+    <input id="BtnEnviarImc" type="button" value="Enviar">
 
   </form>
 
