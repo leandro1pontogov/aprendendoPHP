@@ -11,9 +11,23 @@
   #frmCadastroPessoa{
     display: flex;
     flex-direction: column;
-    width: 400px;
+    align-items: center;
+    align-content: center;
     height: 100%;
     gap: 5px;
+  }
+  #frmNotaPessoa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    height: 100%;
+    gap: 5px;
+  }
+  #linha{
+    border: 1px dashed black;
+    width: 100%;
+    margin-top: 15px;
   }
 </style>
 <script>
@@ -25,6 +39,19 @@ $(document).ready(function() {
         dsNome: $("#dsNome").val(),
         dsIdade: $("#dsIdade").val(),
         flGenero: $("#flGenero").val()
+      },
+      function(response){
+        console.log(response)
+    })
+  })
+  $("#BtnEnviarNota").click(function(){
+    $.post(
+      "controller.php?action=calcularMedia",
+      {
+        vlNota1: $("#vlNota1").val(),
+        vlNota2: $("#vlNota2").val(),
+        vlNota3: $("#vlNota3").val(),
+        vlNota4: $("#vlNota4").val(),
       },
       function(response){
         console.log(response)
@@ -43,8 +70,8 @@ $(document).ready(function() {
     <input type="text" id="dsNome" name="dsNome">
     <label for="dsIdade">Informe sua idade</label>
     <input type="text" id="dsIdade" name="dsIdade">
-    <label for="flGenero"></label>
 
+    <label for="flGenero"></label>
     <select name="flGenero" id="flGenero">
       <option value="" disabled selected>Escolha seu Genero</option>
       <option value="M">Masculino</option>
@@ -56,6 +83,23 @@ $(document).ready(function() {
 
   </form>
 
+  <div id="linha"></div>
+
+  <form id="frmNotaPessoa">
+
+    <h2>Informe suas Notas</h2>
+    <label for="vlNota1">Nota 1</label>
+    <input type="text" id="vlNota1" name="vlNota1">
+    <label for="vlNota2">Nota 2</label>
+    <input type="text" id="vlNota2" name="vlNota2">
+    <label for="vlNota3">Nota 3</label>
+    <input type="text" id="vlNota3" name="vlNota3">
+    <label for="vlNota4">Nota 4</label>
+    <input type="text" id="vlNota4" name="vlNota4">
+
+    <input id="BtnEnviarNota" type="button" value="EnviarNota">
+
+  </form>
 
 </body>
 </html>
