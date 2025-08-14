@@ -32,6 +32,14 @@
     height: 100%;
     gap: 5px;
   }
+  #frmData{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    height: 100%;
+    gap: 5px;
+  }
   #linha{
     border: 1px dashed black;
     width: 100%;
@@ -71,6 +79,16 @@ $(document).ready(function() {
       {
         vlPeso: $("#vlPeso").val(),
         vlAltura: $("#vlAltura").val(),
+      },
+      function(response){
+        console.log(response)
+    })
+  })
+  $("#BtnEnviarData").click(function(){
+    $.post(
+      "controller.php?action=calcularData",
+      {
+        dtData: $("#dtData").val(),
       },
       function(response){
         console.log(response)
@@ -134,6 +152,18 @@ $(document).ready(function() {
     <input type="text" id="vlAltura" name="vlAltura">
 
     <input id="BtnEnviarImc" type="button" value="Enviar">
+
+  </form>
+
+  <div id="linha"></div>
+
+  <form id="frmData">
+
+    <h2>Informe uma data</h2>
+
+    <input type="date" name="dtData" id="dtData">
+
+    <input id="BtnEnviarData" type="button" value="Enviar">
 
   </form>
 

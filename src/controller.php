@@ -5,6 +5,8 @@ $action = $_GET["action"];
 switch ($action) {
   case "calcularMedia":
 
+
+    //fazer array
     $nota1 = $_POST["vlNota1"];
     $nota2 = $_POST["vlNota2"];
     $nota3 = $_POST["vlNota3"];
@@ -46,39 +48,45 @@ switch ($action) {
     echo "A maior nota recebida foi: " . $maiorNota;
     break;
 
-    case "calcularImc":
+  case "calcularImc":
 
-      $peso = $_POST["vlPeso"];
-      $altura = $_POST["vlAltura"];
+    $peso = $_POST["vlPeso"];
+    $altura = $_POST["vlAltura"];
 
-      if($peso < 0 || $altura < 0){
-        echo "Informe valores positivos";
-      }
+    if($peso < 0 || $altura < 0){
+      echo "Informe valores positivos";
+    }
 
-      $imc = $peso / ($altura * $altura);
+    $imc = $peso / ($altura * $altura);
 
-      echo "Seu IMC e " . $imc . PHP_EOL;
+    echo "Seu IMC e " . $imc . PHP_EOL;
 
-      if($imc < 18.5){
-        echo "Voce esta abaixo do peso" . PHP_EOL;
-      }else if($imc < 25){
-        echo "Seu peso e normal" . PHP_EOL;
-      }else if($imc < 30){
-        echo "Voce esta com sobrepeso" . PHP_EOL;
-      }else{
-        echo "Voce esta obeso" . PHP_EOL;
-      }
+    if($imc < 18.5){
+      echo "Voce esta abaixo do peso" . PHP_EOL;
+    }else if($imc < 25){
+      echo "Seu peso e normal" . PHP_EOL;
+    }else if($imc < 30){
+      echo "Voce esta com sobrepeso" . PHP_EOL;
+    }else{
+      echo "Voce esta obeso" . PHP_EOL;
+    }
 
-      $peso_ideal = 22 * ($altura ^ 2);
-      echo "Seu peso ideal e de: " . $peso_ideal . PHP_EOL;
+    $peso_ideal = 22 * ($altura ^ 2);
+    echo "Seu peso ideal e de: " . $peso_ideal . PHP_EOL;
 
-      if($peso > $peso_ideal){
-        $acima_peso = $peso - $peso_ideal;
-        echo "Voce esta " . $acima_peso . "KG acima do seu peso ideal" . PHP_EOL;
-      }else{
-        $abaixo_peso = $peso_ideal - $peso;
-        echo "Voce esta " . $abaixo_peso . "KG abaixo do seu peso ideal" . PHP_EOL;
-      }
+    if($peso > $peso_ideal){
+      $acima_peso = $peso - $peso_ideal;
+      echo "Voce esta " . $acima_peso . "KG acima do seu peso ideal" . PHP_EOL;
+    }else{
+      $abaixo_peso = $peso_ideal - $peso;
+      echo "Voce esta " . $abaixo_peso . "KG abaixo do seu peso ideal" . PHP_EOL;
+    }
+    break;
 
-      
+  case "calcularData":
+
+    $data = $_POST["dtData"];
+
+    echo $data;
+
 }
