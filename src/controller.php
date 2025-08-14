@@ -6,23 +6,27 @@ $action = $_GET["action"];
 switch ($action) {
   case "calcularMedia":
 
-    $nota1 = $_POST["vlNota1"];
-    $nota2 = $_POST["vlNota2"];
-    $nota3 = $_POST["vlNota3"];
-    $nota4 = $_POST["vlNota4"];
+    $notas = [
+     $_POST["vlNota1"],
+     $_POST["vlNota2"],
+     $_POST["vlNota3"],
+     $_POST["vlNota4"]
+    ];
 
     $mensagem = "";
 
-    if($nota1 < 0 || $nota1 > 10 ||
-       $nota2 < 0 || $nota2 > 10 ||
-       $nota3 < 0 || $nota3 > 10 ||
-       $nota4 < 0 || $nota4 > 10)
-       {
-       $mensagem .= "Informe notas somente de 0 a 10" . PHP_EOL;
-       exit;
-       }
+    for($i = 0; $i < count($notas); $i++){
+      if($notas[$i] < 0 || $notas[$i] > 10){
+        $mensagem .= "Informe notas somente de 0 a 10" . PHP_EOL;
+        $respostaNota = ["data" => $mensagem];
+        echo json_encode($respostaNota);
+        exit;
+     }
+    }
 
-    $media = ($nota1 + $nota2 + $nota3 + $nota4) / 4;
+    $soma = array_sum($notas);
+    $media = $soma / count($notas);
+    echo $media;
 
     if($media >= 7){
       $mensagem .= "Aprovado!!" . PHP_EOL;
@@ -37,15 +41,12 @@ switch ($action) {
     $mensagem .= "A media das suas notas e: " . $media . PHP_EOL;
 
     $maiorNota = $nota1;
-    if($nota2 > $maiorNota){
-      $maiorNota = $nota2;
-      if($nota3 > $maiorNota){
-        $maiorNota = $nota3;  
-        if($nota4 > $maiorNota){
-          $maiorNota = $nota4;  
-        }
+    for($j = 0; $j < count($notas); $j++){
+      if($notas[$j] > $maiorNota){
+        $maiorNota = $notas[$j];
       }
     }
+
     $mensagem .= "A maior nota recebida foi: " . $maiorNota;
 
     $respostaNota = ["data" => $mensagem];
