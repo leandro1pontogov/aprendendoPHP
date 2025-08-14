@@ -15,18 +15,21 @@ switch ($action) {
 
     $mensagem = "";
 
-    for($i = 0; $i < count($notas); $i++){
-      if($notas[$i] < 0 || $notas[$i] > 10){
+    $maiorNota = 0;
+    foreach($notas as $nota){
+      if($nota < 0 || $nota > 10){
         $mensagem .= "Informe notas somente de 0 a 10" . PHP_EOL;
         $respostaNota = ["data" => $mensagem];
         echo json_encode($respostaNota);
         exit;
-     }
+      }
+      if($nota > $maiorNota){
+        $maiorNota = $nota;
+      }
     }
 
     $soma = array_sum($notas);
     $media = $soma / count($notas);
-    echo $media;
 
     if($media >= 7){
       $mensagem .= "Aprovado!!" . PHP_EOL;
@@ -38,16 +41,9 @@ switch ($action) {
       $mensagem .= "Reprovado!!" . PHP_EOL;
     }
 
+    $mensagem .= "A maior nota recebida foi: " . $maiorNota . PHP_EOL;
+
     $mensagem .= "A media das suas notas e: " . $media . PHP_EOL;
-
-    $maiorNota = $nota1;
-    for($j = 0; $j < count($notas); $j++){
-      if($notas[$j] > $maiorNota){
-        $maiorNota = $notas[$j];
-      }
-    }
-
-    $mensagem .= "A maior nota recebida foi: " . $maiorNota;
 
     $respostaNota = ["data" => $mensagem];
     echo json_encode($respostaNota);
