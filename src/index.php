@@ -57,8 +57,10 @@ $(document).ready(function() {
         flGenero: $("#flGenero").val()
       },
       function(response){
-        console.log(response)
-    })
+        console.log(response.data)
+      },
+    "json"
+    )
   })
   $("#BtnEnviarNota").click(function(){
     $.post(
@@ -70,8 +72,10 @@ $(document).ready(function() {
         vlNota4: $("#vlNota4").val(),
       },
       function(response){
-        console.log(response)
-    })
+        console.log(response.data)
+      },
+    "json"
+    )
   })
   $("#BtnEnviarImc").click(function(){
     $.post(
@@ -81,8 +85,10 @@ $(document).ready(function() {
         vlAltura: $("#vlAltura").val(),
       },
       function(response){
-        console.log(response)
-    })
+        console.log(response.data)
+    },
+    "json"
+    )
   })
   $("#BtnEnviarData").click(function(){
     $.post(
@@ -91,8 +97,10 @@ $(document).ready(function() {
         dtData: $("#dtData").val(),
       },
       function(response){
-        console.log(response)
-    })
+        console.log(response.data)
+      },
+      "json"
+    )
   })
 })
 </script>

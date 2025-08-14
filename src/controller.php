@@ -11,28 +11,30 @@ switch ($action) {
     $nota3 = $_POST["vlNota3"];
     $nota4 = $_POST["vlNota4"];
 
-    if($nota1 < 0 || $nota1 > 10 ||
-      $nota2 < 0 || $nota2 > 10 ||
-      $nota3 < 0 || $nota3 > 10 ||
-      $nota4 < 0 || $nota4 > 10){
+    $mensagem = "";
 
-      echo "Informe notas somente de 0 a 10" . PHP_EOL;
-      exit;
-    }
+    if($nota1 < 0 || $nota1 > 10 ||
+       $nota2 < 0 || $nota2 > 10 ||
+       $nota3 < 0 || $nota3 > 10 ||
+       $nota4 < 0 || $nota4 > 10)
+       {
+       $mensagem .= "Informe notas somente de 0 a 10" . PHP_EOL;
+       exit;
+       }
 
     $media = ($nota1 + $nota2 + $nota3 + $nota4) / 4;
 
     if($media >= 7){
-      echo "Aprovado!!" . PHP_EOL;
+      $mensagem .= "Aprovado!!" . PHP_EOL;
     }else if($media >= 5){
-      echo "Recuperacao!!" . PHP_EOL;
+      $mensagem .= "Recuperacao!!" . PHP_EOL;
       $notaNecessaria = 14 - $media;
-      echo "Voce precisa de: " . $notaNecessaria . " para passar" . PHP_EOL;
+      $mensagem .= "Voce precisa de: " . $notaNecessaria . " para passar" . PHP_EOL;
     }else{
-      echo "Reprovado!!" . PHP_EOL;
+      $mensagem .= "Reprovado!!" . PHP_EOL;
     }
 
-    echo "A media das suas notas e: " . $media . PHP_EOL;
+    $mensagem .= "A media das suas notas e: " . $media . PHP_EOL;
 
     $maiorNota = $nota1;
     if($nota2 > $maiorNota){
@@ -44,7 +46,10 @@ switch ($action) {
         }
       }
     }
-    echo "A maior nota recebida foi: " . $maiorNota;
+    $mensagem .= "A maior nota recebida foi: " . $maiorNota;
+
+    $respostaNota = ["data" => $mensagem];
+    echo json_encode($respostaNota);
     break;
 
   case "calcularImc":
@@ -52,34 +57,39 @@ switch ($action) {
     $peso = $_POST["vlPeso"];
     $altura = $_POST["vlAltura"];
 
+    $mensagem = "";
+
     if($peso < 0 || $altura < 0){
-      echo "Informe valores positivos";
+      $mensagem .= "Informe valores positivos";
     }
 
     $imc = $peso / ($altura * $altura);
 
-    echo "Seu IMC e " . $imc . PHP_EOL;
+    $mensagem .= "Seu IMC e " . $imc . PHP_EOL;
 
     if($imc < 18.5){
-      echo "Voce esta abaixo do peso" . PHP_EOL;
+      $mensagem .= "Voce esta abaixo do peso" . PHP_EOL;
     }else if($imc < 25){
-      echo "Seu peso e normal" . PHP_EOL;
+      $mensagem .= "Seu peso e normal" . PHP_EOL;
     }else if($imc < 30){
-      echo "Voce esta com sobrepeso" . PHP_EOL;
+      $mensagem .= "Voce esta com sobrepeso" . PHP_EOL;
     }else{
-      echo "Voce esta obeso" . PHP_EOL;
+      $mensagem .= "Voce esta obeso" . PHP_EOL;
     }
 
     $peso_ideal = 22 * ($altura ^ 2);
-    echo "Seu peso ideal e de: " . $peso_ideal . PHP_EOL;
+    $mensagem .= "Seu peso ideal e de: " . $peso_ideal . PHP_EOL;
 
     if($peso > $peso_ideal){
       $acima_peso = $peso - $peso_ideal;
-      echo "Voce esta " . $acima_peso . "KG acima do seu peso ideal" . PHP_EOL;
+      $mensagem .= "Voce esta " . $acima_peso . "KG acima do seu peso ideal" . PHP_EOL;
     }else{
       $abaixo_peso = $peso_ideal - $peso;
-      echo "Voce esta " . $abaixo_peso . "KG abaixo do seu peso ideal" . PHP_EOL;
+      $mensagem .= "Voce esta " . $abaixo_peso . "KG abaixo do seu peso ideal" . PHP_EOL;
     }
+
+    $respostaImc = ["data" => $mensagem];
+    echo json_encode($respostaImc);
     break;
 
   case "calcularData":
@@ -95,12 +105,17 @@ switch ($action) {
     $minutos = $intervalo->i;
     $segundos = $intervalo->s;
 
+    $mensagem = "";
+
     if($intervalo->invert === 0){
-      echo "A data informada foi a: ";
+      $mensagem .= "A data informada foi a: ";
     }else{
-      echo "A data informada sera daqui a: ";
+      $mensagem .= "A data informada sera daqui a: ";
     }
 
-    echo $dias . " dias, " . $horas . " horas, " . $minutos . " minutos e " . $segundos . " segundos";
+    $mensagem .= $dias . " dias, " . $horas . " horas, " . $minutos . " minutos e " . $segundos . " segundos";
 
+    $respostaData =  ["data" => $mensagem];
+    echo json_encode($respostaData);
+    break;
 }
