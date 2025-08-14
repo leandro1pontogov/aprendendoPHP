@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Sao_Paulo');
+
 $nome = $_POST["dsNome"];
 $idade = $_POST["dsIdade"];
 $genero = "";

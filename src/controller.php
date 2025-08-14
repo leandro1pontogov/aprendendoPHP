@@ -1,12 +1,11 @@
 <?php
 
+date_default_timezone_set('America/Sao_Paulo');
 $action = $_GET["action"];
 
 switch ($action) {
   case "calcularMedia":
 
-
-    //fazer array
     $nota1 = $_POST["vlNota1"];
     $nota2 = $_POST["vlNota2"];
     $nota3 = $_POST["vlNota3"];
@@ -27,7 +26,7 @@ switch ($action) {
       echo "Aprovado!!" . PHP_EOL;
     }else if($media >= 5){
       echo "Recuperacao!!" . PHP_EOL;
-      $notaNecessaria = 7 - $media;
+      $notaNecessaria = 14 - $media;
       echo "Voce precisa de: " . $notaNecessaria . " para passar" . PHP_EOL;
     }else{
       echo "Reprovado!!" . PHP_EOL;
@@ -85,8 +84,23 @@ switch ($action) {
 
   case "calcularData":
 
-    $data = $_POST["dtData"];
+    $dataInformadaStr = $_POST["dtData"];
+    $dataInformada = new DateTime($dataInformadaStr);
+    $dataAtual = new DateTime();
 
-    echo $data;
+    $intervalo = $dataInformada->diff($dataAtual);
+
+    $dias = $intervalo->days;
+    $horas = $intervalo->h;
+    $minutos = $intervalo->i;
+    $segundos = $intervalo->s;
+
+    if($intervalo->invert === 0){
+      echo "A data informada foi a: ";
+    }else{
+      echo "A data informada sera daqui a: ";
+    }
+
+    echo $dias . " dias, " . $horas . " horas, " . $minutos . " minutos e " . $segundos . " segundos";
 
 }
